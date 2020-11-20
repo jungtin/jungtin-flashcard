@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col">
+          <!-- <CheckValidImageCmp/> -->
+          <!-- <UploadImageCmp/> -->
+          <UploadImageURLCmp/>
+          <!-- <PreviewImageCmp/> -->
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+/* eslint-disable vue/no-unused-components */
+import PreviewImageCmp from "@/components/PreviewImageCmp.vue";
+import CheckValidImageCmp from "@/components/CheckValidImageCmp.vue";
+import UploadImageCmp from "@/components/UploadImageCmp.vue";
+import UploadImageURLCmp from "@/components/UploadImageURLCmp.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    PreviewImageCmp,
+    UploadImageCmp,
+    UploadImageURLCmp,
+    CheckValidImageCmp
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
