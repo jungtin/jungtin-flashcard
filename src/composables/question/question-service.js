@@ -94,67 +94,33 @@ export const handleDeleteQuestion = async function(question) {
         addToast(QUESTION.DELETE.FAIL); // notify
     }
 }
-// export const handleAddQuestion = () => {
-//     const { currentCourse } = courseService.useCourseState();
-    
-//     const question = {
-//         id: formData.id,
-//         name: formData.name,
-//         order: formData.order,
-//     }
-//     const courseId = currentCourse.value.id;
-
-//     questionRepository.createQuestion(question, courseId).then(res => {
-//         clearFormData();
-//         addToast(QUESTION.CREATE.SUCCESS); // notify
-//     }).catch(err => {
-//         console.error(err);
-//         addToast(QUESTION.CREATE.FAIL); // notify
-//     });
-// }
-
-// const clearFormData = function() {
-//     formData.id = null;
-//     formData.name = null;
-//     formData.order = null;
-// }
-
-// export const openUpdateQuestionModal = (question) => {
-//     modalFormData.id = question.id;
-//     modalFormData.name = question.name;
-//     modalFormData.order = question.order;
-
-//     $('#modal-question').modal('show')
-// }
-
-// export const handleUpdateQuestion = function() {
-//     const { currentCourse } = courseService.useCourseState();
-    
-//     questionRepository.updateQuestion({ ...modalFormData }, currentCourse.value.id).then(res => {
-//         addToast(QUESTION.UPDATE.SUCCESS); // notify
-//     }).catch(err => {
-//         console.error(err);
-//         addToast(QUESTION.UPDATE.FAIL); // notify
-//     })
-
-//     $("#modal-question").modal('hide')
-// }
-
-// export const handleDeleteQuestion = (question) => {
-//     if(!confirm(`Are you really want to remove [${question.name}] question ?`))
-//         return;
-    
-//         const { currentCourse } = courseService.useCourseState();
-//     questionRepository.deleteQuestion(question.id, currentCourse.value.id).then(res => {
-//         addToast(QUESTION.DELETE.SUCCESS); //notify
-//     }).catch(err => {
-//         console.error(err);
-//         addToast(QUESTION.DELETE.FAIL); // notify
-//     })
-// }
 
 export const fetchQuestions = (ref) => {
     questions.value = []; // reset trước khi fetch new
 
     getSyncFirestore(ref, questions.value);
+}
+
+export const fetchQuestionsOnce = async (courseId, chapterId) => {
+    questions.value = []; // reset trước khi fetch new
+
+    try {
+        const snap = await questionRepository.getAllQuestions(courseId, chapterId);
+
+        // await new Promise((res, rej) => {
+        //     setTimeout(() => {
+        //         res(123);
+        //     }, 5000);
+        // })
+
+        snap.forEach(doc => {
+            questions.value.push({
+                id: doc.id,
+                ...doc.data()
+            })
+        })
+    } catch(err) {
+        console.error("FETCH QUESTIONS ONCE FAIL");
+        console.log(err);
+    }
 }

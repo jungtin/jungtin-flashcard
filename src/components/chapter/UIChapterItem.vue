@@ -9,8 +9,12 @@
             <button class="btn btn-outline-danger btn-sm" @click="handleDeleteChapter(chapter)">Remove</button>
         </div>
         <div class="chapter-order-container">
-            <IconArrowUp @click="null" class="chapter-order-icon" />
-            <IconArrowDown @click="null" class="chapter-order-icon" />
+            <IconArrowUp
+                @click.stop="handleUpdateOrder(chapter, UPDATE_ORDER_STATE.INCREMENT)" 
+                class="chapter-order-icon" />
+            <IconArrowDown 
+                @click.stop="handleUpdateOrder(chapter, UPDATE_ORDER_STATE.DECREMENT)" 
+                class="chapter-order-icon" />
         </div>
     </div>
 </router-link>
@@ -35,13 +39,17 @@ export default {
     setup() {
         const openUpdateChapterModal = chapterService.openUpdateChapterModal;
         const handleDeleteChapter = chapterService.handleDeleteChapter;
+        const UPDATE_ORDER_STATE = chapterService.UPDATE_ORDER_STATE;
+        const handleUpdateOrder = chapterService.handleUpdateOrder;
+
 
         return {
-
+            UPDATE_ORDER_STATE,
 
             /* Methods */
             openUpdateChapterModal,
             handleDeleteChapter,
+            handleUpdateOrder,
         }
     }
 }

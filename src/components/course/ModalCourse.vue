@@ -9,29 +9,28 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <BaseInput type="text" id="product-name" :validator="$v.name" label="Name" v-model="$v.name.$model" />
+            <form @submit="submit" @keydown.ctrl.enter.exact="submit">
+                <div class="modal-body">
+                    <form>
+                        <BaseInput type="text" id="product-name" :validator="$v.name" label="Name" v-model="$v.name.$model" />
 
-                    <div class="form-group">
-                        <label for="course-description" class="col-form-label">Description:</label>
-                        <textarea class="form-control" id="course-description" rows="5" v-model="description" />
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                </button>
-                <button
-                    type="button"
-                    :class="['btn', modalAttrs.classes]"
-                    @click="submit"
-                    :disabled="$v.$errors.length"
-                >
-                    {{ modalAttrs.title }}
-                </button>
-            </div> <!-- End Footer -->
+                        <div class="form-group">
+                            <label for="course-description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="course-description" rows="5" v-model="description" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <small class="text-muted mr-auto">*Submit nhanh với Ctrl + Enter</small>
+                    <button
+                        type="submit"
+                        :class="['btn', modalAttrs.classes]"
+                        :disabled="$v.$errors.length"
+                    >
+                        {{ modalAttrs.title }}
+                    </button>
+                </div> <!-- End Footer -->
+            </form>
         </div> <!-- End Content -->
     </div>
   </div>

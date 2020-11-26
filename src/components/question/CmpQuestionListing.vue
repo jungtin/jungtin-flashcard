@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between my-3">
         <h2>Questions</h2>
     </div>
-    <table class="table table-dark">
+    <table class="table table-dark" v-if="questions.length != 0">
         <tr>
             <th>Original</th>
             <th>Learning</th>
@@ -14,6 +14,7 @@
             <td>{{ question.learning }}</td>
         </tr>
     </table>
+    <h5 class="lead" v-else>There's no question yet !</h5>
 </div>
 </template>
 

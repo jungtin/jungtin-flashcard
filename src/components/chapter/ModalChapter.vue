@@ -9,24 +9,23 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form @submit.prevent="submit">
-                    <BaseInput type="text" id="modal-chapter-name" :validator="$v.name" label="Name" v-model="$v.name.$model" />
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-success"
-                    @click="submit"
-                    :disabled="$v.$errors.length"
-                >
-                    Update
-                </button>
-            </div> <!-- End Footer -->
+            <form @submit="submit" @keydown.ctrl.enter.exact="submit">
+                <div class="modal-body">
+                    <form @submit.prevent="submit">
+                        <BaseInput type="text" id="modal-chapter-name" :validator="$v.name" label="Name" v-model="$v.name.$model" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <small class="text-muted mr-auto">*Submit nhanh với Ctrl + Enter</small>
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        :disabled="$v.$errors.length"
+                    >
+                        Update
+                    </button>
+                </div> <!-- End Footer -->
+            </form>
         </div> <!-- End Content -->
     </div>
   </div>

@@ -48,6 +48,28 @@ export const QUESTION = {
     },
 }
 
+export const QUESTION_BULK = {
+    CREATE: {
+        SUCCESS: generateToastConfig("create", true, "question bulk"),
+        FAIL: generateToastConfig("create", false, "question bulk")
+    },
+    UPDATE: {
+        SUCCESS: generateToastConfig("update", true, "question bulk"),
+        FAIL: generateToastConfig("update", false, "question bulk")
+    },
+    DELETE: {
+        SUCCESS: generateToastConfig("delete", true, "question bulk"),
+        FAIL: generateToastConfig("delete", false, "question bulk")
+    },
+}
+
+export const QUESTION_PRACTICE = {
+    ANSWER: {
+        CORRECT: generateToastConfig("answer", true, "question"),
+        INCORRECT: generateToastConfig("answer", false, "scoring this question")
+    },
+}
+
 
 
 

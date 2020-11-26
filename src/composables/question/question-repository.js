@@ -15,3 +15,7 @@ export const updateQuestion = (question, courseId, chapterId) =>  {
 export const deleteQuestion = (questionId, courseId, chapterId) => {
     return questionsRef(courseId, chapterId).doc(questionId).delete();
 }
+
+export const getAllQuestions = (courseId, chapterId) => {
+    return questionsRef(courseId, chapterId).get();
+}

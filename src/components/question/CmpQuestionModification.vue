@@ -20,7 +20,7 @@
             </tr>
         </table>
     </form>
-    <table class="table table-dark">
+    <table class="table table-dark" v-if="questions.length != 0">
         <tr>
             <th>Original</th>
             <th>Learning</th>
@@ -30,6 +30,7 @@
             :question="question"
             :key="question.id"/>
     </table>
+    <h5 class="lead" v-else>There's no question yet !</h5>
 </div>
 </template>
 
@@ -40,9 +41,7 @@ import { onBeforeRouteUpdate } from "vue-router"
 import UIQuestionItem from './UIQuestionItem.vue';
 
 import * as questionService from "@/composables/question/question-service"
-import * as courseService from "@/composables/course/course-service"
-import * as chapterService from "@/composables/chapter/chapter-service"
-import { questionsRef } from "@/scripts/firebase-config" 
+
 
 export default {
     components: {
@@ -57,19 +56,7 @@ export default {
 
         const { questions } = questionService.useQuestionState();
 
-        onBeforeRouteUpdate(async (to, from, next) => {
-            if (to.params.chapterId !== from.params.chapterId) {
-                const chapterId = to.params.chapterId;
-                chapterService.fetchDetailChapter(chapterId); // cái này là dùng cho sau này : Best Practice (lưu share state vào central)
-
-                const { currentCourse } = courseService.useCourseState();
-                const courseId = currentCourse.value.id;
-                
-                const ref = questionsRef(courseId, chapterId);
-                questionService.fetchQuestions(ref);
-                next();
-            }
-        })
+        
 
         return {
             isShowCreateForm,

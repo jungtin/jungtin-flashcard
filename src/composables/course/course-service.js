@@ -128,7 +128,6 @@ export const fetchDetailCourse = async (id) => {
         }
 
         currentCourse.value = course;
-        return course;
     } catch(err) {
         console.log(err);
     }

@@ -20,7 +20,7 @@
         <div class="invalid-feedback">*{{ err.$message }}</div>
         </template>
     </form>
-    <UIChapterItem v-for="chapter in chapters" :chapter="chapter" :key="chapter.id"/>
+    <UIChapterItem v-for="chapter in sortedChapters" :chapter="chapter" :key="chapter.id"/>
 </div>
 <ModalChapter/>
 </template>
@@ -29,7 +29,7 @@
 import ModalChapter from '@/components/chapter/ModalChapter.vue';
 import UIChapterItem from '@/components/chapter/UIChapterItem.vue';
 
-import { ref, toRefs } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import { useVuelidate } from '@vuelidate/core'
 import * as courseService from "@/composables/course/course-service"
 import * as courseRepository from "@/composables/course/course-repository"
@@ -75,6 +75,21 @@ export default {
                 v.value.$reset();
             }
         }
+
+        const sortedChapters = ref([])
+        watch(chapters.value, function() {
+            if(chapters.value.length === 0) return;
+
+            const arr = [];
+            let current = chapters.value.find(c => c.prevRefId === null);
+            arr.push(current);
+            while(arr.length !== chapters.value.length) {
+                current = chapters.value.find(c => c.id === current.nextRefId) || chapters.value.find(c => c.nextRefId === null);
+                arr.push(current);
+            } 
+            
+            sortedChapters.value = arr.reverse();
+        }, {immediate: true})
         
         return {
             /* Vuelidate */
@@ -83,6 +98,7 @@ export default {
             
             /* State */
             currentCourse,
+            sortedChapters,
 
             name,
             chapters,
